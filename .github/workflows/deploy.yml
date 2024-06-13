@@ -24,20 +24,16 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y rsync
         
-    - name: Create Test File on Droplet
-      run: |
-        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com "touch /var/www/html/test_file.txt"
-
     - name: Deploy to Droplet
       run: |
         rsync -avz --delete --no-times \
         -e "ssh -o StrictHostKeyChecking=no" \
         app/ sabis@sabis.jarabeachresort.com:/var/www/html/
-
-    - name: Set Permissions
+        
+    - name: Create Test File on Droplet
       run: |
-        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com 'chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html'
+        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com "touch /var/www/html/test_file.txt"
 
     - name: Restart Apache
       run: |
-        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com 'sudo systemctl restart apache2'
+        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com 'systemctl restart apache2'
