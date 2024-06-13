@@ -30,8 +30,9 @@ jobs:
 
     - name: Deploy to Droplet
       run: |
-        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com "rsync -avz --delete --no-times ./app/ /var/www/html/"
-
+        rsync -avz --delete --no-times \
+        -e "ssh -o StrictHostKeyChecking=no" \
+        app/ sabis@sabis.jarabeachresort.com:/var/www/html/
 
     - name: Set Permissions
       run: |
