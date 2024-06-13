@@ -1,0 +1,13 @@
+[25-Jan-2024 10:15:34 Africa/Lagos] PHP Warning:  include_once(/var/sftp/ordering_system/admintool/system/class/dbclass.php): failed to open stream: No such file or directory in /home2/mywebcbh/public_html/project/sabis-resort/admintool/system/config/configure.php on line 43
+[25-Jan-2024 10:15:34 Africa/Lagos] PHP Warning:  include_once(): Failed opening '/var/sftp/ordering_system/admintool/system/class/dbclass.php' for inclusion (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home2/mywebcbh/public_html/project/sabis-resort/admintool/system/config/configure.php on line 43
+[25-Jan-2024 10:15:34 Africa/Lagos] PHP Fatal error:  Uncaught Error: Class 'dbclass' not found in /home2/mywebcbh/public_html/project/sabis-resort/admintool/system/config/configure.php:44
+Stack trace:
+#0 /home2/mywebcbh/public_html/project/sabis-resort/index.php(6): require()
+#1 {main}
+  thrown in /home2/mywebcbh/public_html/project/sabis-resort/admintool/system/config/configure.php on line 44
+[25-Jan-2024 11:02:17 Africa/Lagos] PHP Warning:  mysqli_connect(): (HY000/1044): Access denied for user 'mywebcbh_sabisresortuser'@'localhost' to database 'mywebcbh_sabisresortdb' in /home2/mywebcbh/public_html/project/sabis-resort/admintool/system/class/dbclass.php on line 6
+[25-Jan-2024 11:02:17 Africa/Lagos] PHP Warning:  mysqli_errno() expects exactly 1 parameter, 0 given in /home2/mywebcbh/public_html/project/sabis-resort/admintool/system/class/dbclass.php on line 27
+[25-Jan-2024 11:02:17 Africa/Lagos] PHP Warning:  mysqli_error() expects exactly 1 parameter, 0 given in /home2/mywebcbh/public_html/project/sabis-resort/admintool/system/class/dbclass.php on line 28
+[17-Feb-2024 10:34:29 Africa/Lagos] PHP Warning:  implode(): Invalid arguments passed in /home2/mywebcbh/public_html/project/sabis-resort/order.php on line 192
+[23-Feb-2024 19:44:38 Africa/Lagos] PHP Warning:  implode(): Invalid arguments passed in /home2/mywebcbh/public_html/project/sabis-resort/order.php on line 192
+[27-Feb-2024 19:48:10 Africa/Lagos] PHP Warning:  implode(): Invalid arguments passed in /home2/mywebcbh/public_html/project/sabis-resort/order.php on line 192
