@@ -1,4 +1,4 @@
-name: Create Test File on DigitalOcean Droplet
+name: Deploy PHP App to DigitalOcean
 
 on:
   push:
@@ -19,6 +19,22 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.DO_SSH_KEY }}
 
-    - name: Create Test File on Droplet
+    - name: Install Dependencies
       run: |
-        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com "touch /var/www/html/test_file.txt"
+        sudo apt-get update
+        sudo apt-get install -y rsync
+        
+    - name: Deploy to Droplet
+      run: |
+        rsync -avz --delete \
+        -e "ssh -o StrictHostKeyChecking=no" \
+        ./app/ sabis@sabis.jarabeachresort.com:/var/www/html/
+
+
+    - name: Set Permissions
+      run: |
+        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com 'chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html'
+
+    - name: Restart Apache
+      run: |
+        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com 'systemctl restart apache2'
