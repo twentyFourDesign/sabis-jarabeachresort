@@ -23,14 +23,15 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y rsync
+        
+    - name: Create Test File on Droplet
+      run: |
+        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com "touch /var/www/html/test_file.txt"
 
     - name: Deploy to Droplet
       run: |
-        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com "sudo rsync -avz --delete --no-times ./app/ /var/www/html/"
+        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com "rsync -avz --delete --no-times ./app/ /var/www/html/"
 
-    - name: Create Test File on Droplet
-      run: |
-        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com "sudo touch /var/www/html/test_file.txt"
 
     - name: Set Permissions
       run: |
