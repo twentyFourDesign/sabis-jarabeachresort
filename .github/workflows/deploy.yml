@@ -36,7 +36,7 @@ jobs:
 
     - name: Set Permissions
       run: |
-        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com 'sudo chown -R www-data:www-data /var/www/html && sudo chmod -R 755 /var/www/html'
+        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com 'chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html'
 
     - name: Restart Apache
       run: |
