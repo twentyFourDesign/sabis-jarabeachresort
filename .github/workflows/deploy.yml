@@ -26,13 +26,11 @@ jobs:
 
     - name: Deploy to Droplet
       run: |
-        rsync -avz --delete \
-        -e "ssh -o StrictHostKeyChecking=no" \
-        ./app/ sabis@sabis.jarabeachresort.com:/var/www/html/
+        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com "sudo rsync -avz --delete --no-times /local/path/to/app/ /var/www/html/"
 
     - name: Create Test File on Droplet
       run: |
-        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com "touch /var/www/html/test_file.txt"
+        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com "sudo touch /var/www/html/test_file.txt"
 
     - name: Set Permissions
       run: |
