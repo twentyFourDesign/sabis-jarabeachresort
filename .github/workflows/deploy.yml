@@ -34,6 +34,8 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com "touch /var/www/html/test_file.txt"
 
-    - name: Restart Apache
+ - name: Restart Apache
+      env:
+        SUDO_PASSWORD: ${{ secrets.SUDO_PASSWORD }}
       run: |
-        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com 'sudo systemctl restart apache2'
+        ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com "echo $SUDO_PASSWORD | sudo -S systemctl restart apache2"
