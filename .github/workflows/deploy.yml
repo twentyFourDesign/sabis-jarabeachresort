@@ -34,7 +34,7 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no sabis@sabis.jarabeachresort.com "touch /var/www/html/test_file.txt"
 
- - name: Restart Apache
+    - name: Restart Apache
       env:
         SUDO_PASSWORD: ${{ secrets.SUDO_PASSWORD }}
       run: |
