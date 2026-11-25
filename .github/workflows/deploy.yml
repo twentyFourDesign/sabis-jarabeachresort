@@ -26,7 +26,12 @@ jobs:
         
     - name: Deploy to Droplet
       run: |
-        rsync -avz --delete --no-times \
+        # No --delete: files that exist only on the server (photos uploaded in
+        # admin, files added there) must never be removed by a deploy.
+        # Uploaded photos and server logs are never overwritten either.
+        rsync -avz --no-times \
+        --exclude 'admintool/upload/' \
+        --exclude 'error_log' \
         -e "ssh -o StrictHostKeyChecking=no" \
         app/ sabis@sabis.jarabeachresort.com:/var/www/html/
         

@@ -2,7 +2,8 @@
 $row = $dbobj -> select("SELECT * FROM menu_category where MC_Parent='0' and MC_Status='Active' order by MC_Sort ASC");
 include "include/regchk.php";
 if($_REQUEST['tabno']!='') {
-    $_SESSION['tabno']=$_REQUEST['tabno'];
+    include_once __DIR__.'/include/rooms.php';
+    $_SESSION['tabno']=jara_clean_selection($_REQUEST['tabno'], get_value('Con_TableNo','configure','Con_Id',1));
     $_SESSION['noofg']=$_REQUEST['noofg'];
 }
 ?>
