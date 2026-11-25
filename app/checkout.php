@@ -7,7 +7,8 @@ $_SESSION['whattime']=$_REQUEST['whattime'];
 $_SESSION['whereeat']=$_REQUEST['whereeat'];
 $_SESSION['comment']=$_REQUEST['txtcomment'];
 
-if($_SESSION['femail']=='') { $_SESSION['femail']='customer_email@abc.com'; }
+// Paystack needs an email; if the guest gave none, use the resort's address for Paystack only.
+$paystack_email = filter_var($_SESSION['femail'], FILTER_VALIDATE_EMAIL) ? $_SESSION['femail'] : get_value('Con_from_Email','configure','Con_Id',1);
 
 $flag=0;
 for($t=0;$t<count($_SESSION['cart']);$t++) {
@@ -45,7 +46,7 @@ for($t=0;$t<count($_SESSION['cart']);$t++) {
   function payWithPaystack(){
     var handler = PaystackPop.setup({
       key: 'pk_live_5c778b5eb74ec195450dc789bc091f0fcf8bc5f5',
-      email: '<?=$_SESSION['femail'];?>',
+      email: <?=json_encode($paystack_email);?>,
       amount: <?=floatval($_SESSION['gtot'])*100?>,
       ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
       metadata: {
