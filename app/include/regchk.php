@@ -2,7 +2,8 @@
 if(isset($_SESSION['memname']) && !empty($_SESSION['memname'])) {
 } else {
     if($_REQUEST['fname']!='') {
-        $_SESSION['tabno']=$_REQUEST['tabno'];
+        include_once __DIR__.'/rooms.php';
+        $_SESSION['tabno']=jara_clean_selection($_REQUEST['tabno'], get_value('Con_TableNo','configure','Con_Id',1));
         $_SESSION['noofg']=$_REQUEST['noofg'];
         $_SESSION['memname']=$_REQUEST['fname'];
         $_SESSION['lname']=$_REQUEST['lname'];

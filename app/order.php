@@ -206,7 +206,7 @@ window.onload = function(){//window.addEventListener('load',function(){...}); (f
             </div>
         <?php } ?>
         <div class="totouter">
-            <h4 class="tbno">Room #<?=implode(",",$_SESSION['tabno']);?></h4>
+            <h4 class="tbno"><?=htmlspecialchars(implode(", ",(array)$_SESSION['tabno']));?></h4>
             <div class="ori_left oribold">Item Total</div>
             <div id="itemtot" class="ori_rgt oribold"></div>
             <div class="ori_left" id="iteextradiv">Extra For Option</div>
