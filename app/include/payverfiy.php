@@ -1,4 +1,7 @@
 <?php require "../admintool/system/config/configure.php";
+
+// Stop duplicate orders: nothing in the cart means this order was already saved.
+if(empty($_SESSION['cart'])) { echo 'false'; exit; }
 if(is_array($_SESSION['allegy'])) {
     $allegy = implode(', ', $_SESSION['allegy']);
 } else {
@@ -92,7 +95,7 @@ if($id>0) {
 		$emailstr = '<br>Email Address: '.$_SESSION['femail'];
 	}
 
-	$message22 = 'Thank you for order via SABIS.<br><br><a target=_blank href=https://www.jollofbyjara.com/sabis/><img src=https://mywebapp.co.in/project/sabis-resort/assets/images/maillogo.jpg /></a><br><br>Your Order Details are shown below: <br><br><a target=_blank href=https://www.jollofbyjara.com/><img style=width:100px src=https://mywebapp.co.in/project/sabis-resort/assets/images/tplogo.png /></a><br><br>Preferred Name: '.$_SESSION['memname'].$emailstr.'<br>Table No: '.$_SESSION['tabno'].'<br>No of Guest: '.$_SESSION['noofg'].'<br><br>Date: '.date('Y-m-d').'<br><br>Your Order: '.$htmlmi.'<br><br>Allergens: '.$allegy.'<br><br>Order Instructions: '.$_SESSION['orins'].$delstr.'<br><br>Service Charge: N'.$_SESSION['servcrg'].'<br>Consumption Tax: N'.$_SESSION['conscrg'].'<br>VAT: N'.$_SESSION['vatcrg'].'<br>Total: N'.$totalvalue.'<br>Discount Value: N'.$disvalue.'<br>Grand Total: N'.$pricefinal.'<br>';
+	$message22 = 'Thank you for order via SABIS.<br><br><a target=_blank href=https://www.jollofbyjara.com/sabis/><img src=https://sabis.jarabeachresort.com/assets/images/maillogo.jpg /></a><br><br>Your Order Details are shown below: <br><br><a target=_blank href=https://www.jollofbyjara.com/><img style=width:100px src=https://sabis.jarabeachresort.com/assets/images/tplogo.png /></a><br><br>Preferred Name: '.$_SESSION['memname'].$emailstr.'<br>Table No: '.(is_array($_SESSION['tabno']) ? implode(', ', $_SESSION['tabno']) : $_SESSION['tabno']).'<br>No of Guest: '.$_SESSION['noofg'].'<br><br>Date: '.date('Y-m-d').'<br><br>Your Order: '.$htmlmi.'<br><br>Allergens: '.$allegy.'<br><br>Order Instructions: '.$_SESSION['orins'].$delstr.'<br><br>Service Charge: N'.$_SESSION['servcrg'].'<br>Consumption Tax: N'.$_SESSION['conscrg'].'<br>VAT: N'.$_SESSION['vatcrg'].'<br>Total: N'.$totalvalue.'<br>Discount Value: N'.$disvalue.'<br>Grand Total: N'.$pricefinal.'<br>';
 	$to = $_SESSION['femail'];
 	$toadmin = get_value('Con_from_Email','configure','Con_Id',1);
 	$emailfrm = get_value('Con_from_Email','configure','Con_Id',1);
@@ -101,7 +104,7 @@ if($id>0) {
 	'Reply-To: ' . $emailfrm . "\r\n";
 	$headers .= 'MIME-Version: 1.0' . "\r\n";
 	$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-	SendMail($to, $emailfrm, $subject, $message22, $headers);
+	if(!empty($to)) SendMail($to, $emailfrm, $subject, $message22, $headers);
 	SendMail($toadmin, $emailfrm, $subject, $message22, $headers);
     
     unset($_SESSION['cart']);
